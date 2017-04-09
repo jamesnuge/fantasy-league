@@ -7,7 +7,7 @@ import java.util.UUID;
 /**
  * Created by james on 9/04/17.
  */
-public class UserId extends BaseId {
+public class UserId extends BaseId<UUID> {
     public UserId(UUID id) {
         super(id);
     }

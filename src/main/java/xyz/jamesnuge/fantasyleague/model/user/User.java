@@ -7,7 +7,7 @@ import java.util.UUID;
 /**
  * Created by james on 9/04/17.
  */
-public class User extends BaseModel<UserId> implements HasPassword {
+public class User extends BaseModel<UUID, UserId> implements HasPassword {
 
     private String firstName;
     private String lastName;

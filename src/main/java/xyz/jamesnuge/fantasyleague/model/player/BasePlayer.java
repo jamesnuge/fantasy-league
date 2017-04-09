@@ -8,7 +8,7 @@ import java.util.UUID;
 /**
  * Created by james on 9/04/17.
  */
-public class BasePlayer<T extends Position> extends BaseModel<PlayerId> implements Player<T> {
+public class BasePlayer<T extends Position> extends BaseModel<UUID, PlayerId> implements Player<T> {
 
     private T position;
 

@@ -7,7 +7,7 @@ import java.util.UUID;
 /**
  * Created by james on 9/04/17.d
  */
-public class BaseModel<K extends BaseId> implements Model<UUID, BaseId> {
+public class BaseModel<T, K extends BaseId<T>> implements Model<T, K> {
 
     private K id;
 

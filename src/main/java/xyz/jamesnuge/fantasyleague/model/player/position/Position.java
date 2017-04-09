@@ -7,9 +7,8 @@ import java.util.UUID;
 /**
  * Created by james on 9/04/17.
  */
-public class Position extends BaseModel<PositionId> {
+public class Position extends BaseModel<Integer, PositionId> {
 
-    private UUID id;
     private String name;
 
     public Position(Integer id, String name) {
