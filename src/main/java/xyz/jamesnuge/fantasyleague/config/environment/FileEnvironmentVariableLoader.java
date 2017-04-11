@@ -1,4 +1,4 @@
-package xyz.jamesnuge.fantasyleague.util.environment;
+package xyz.jamesnuge.fantasyleague.config.environment;
 
 import java.io.File;
 import java.io.FileInputStream;

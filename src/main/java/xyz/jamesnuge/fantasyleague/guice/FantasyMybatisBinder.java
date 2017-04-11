@@ -4,14 +4,13 @@ import com.google.inject.name.Names;
 import org.mybatis.guice.MyBatisModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import xyz.jamesnuge.fantasyleague.config.environment.utils.AppUtil;
 import xyz.jamesnuge.fantasyleague.guice.mybatis.JdbcUtil;
-import xyz.jamesnuge.fantasyleague.util.environment.EnvironmentVariableLoader;
+import xyz.jamesnuge.fantasyleague.config.environment.EnvironmentVariableLoader;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
-import static xyz.jamesnuge.fantasyleague.guice.mybatis.JdbcUtil.JDBC_POSTGRESQL_URL_PREFIX;
-import static xyz.jamesnuge.fantasyleague.guice.mybatis.JdbcUtil.JDBC_URL_SEPARATOR;
+import static xyz.jamesnuge.fantasyleague.guice.mybatis.JdbcUtil.*;
 
 /**
  * Created by james on 11/04/17.
@@ -23,12 +22,15 @@ public class FantasyMybatisBinder extends MyBatisModule {
     private final EnvironmentVariableLoader environmentVariableLoader;
     private final URI databaseUri;
     private final String rawJdbcUrl;
+    private final String driverType;
+    
 
     private final Boolean isProduction;
 
-    public FantasyMybatisBinder(EnvironmentVariableLoader environmentVariableLoader) throws Exception {
+    public FantasyMybatisBinder(EnvironmentVariableLoader environmentVariableLoader, String driverType) throws Exception {
         this.environmentVariableLoader = environmentVariableLoader;
-        this.isProduction = environmentVariableLoader.environmentVariableisPresent("environment") ? environmentVariableLoader.environmentVariableisPresent("environment") : false;
+        this.driverType = driverType;
+        this.isProduction = environmentVariableLoader.environmentVariableisPresent(AppUtil.ENVIRONMENT_KEY) ? environmentVariableLoader.environmentVariableisPresent("environment") : false;
         if (environmentVariableLoader.environmentVariableisPresent(MybatisGuiceUtil.DATABASE_URL_KEY)) {
             databaseUri = new URI(environmentVariableLoader.getEnvironmentVariable(MybatisGuiceUtil.DATABASE_URL_KEY));
             rawJdbcUrl = JdbcUtil.getRawJDBCUrlFromUri(databaseUri);
@@ -46,15 +48,12 @@ public class FantasyMybatisBinder extends MyBatisModule {
         else
             environmentId("development");
 
-        bindConstant().annotatedWith(Names.named("JDBC.driver")).to("org.postgresql.Driver");
-        bindConstant().annotatedWith(Names.named("JDBC.url")).to(rawJdbcUrl);
-        bindConstant().annotatedWith(Names.named("JDBC.username")).to(databaseUri.getUserInfo().split(JdbcUtil.JDBC_URL_SEPARATOR)[0]);
-        bindConstant().annotatedWith(Names.named("JDBC.password")).to(databaseUri.getUserInfo().split(JdbcUtil.JDBC_URL_SEPARATOR)[1]);
-        bindConstant().annotatedWith(Names.named("JDBC.autoCommit")).to(false);
+        bindConstant().annotatedWith(Names.named(JDBC_DRIVER_INJECTION_NAME)).to(driverType);
+        bindConstant().annotatedWith(Names.named(JDBC_URL_INJECTION_NAME)).to(rawJdbcUrl);
+        bindConstant().annotatedWith(Names.named(JDBC_USERNAME_INJECTION_NAME)).to(databaseUri.getUserInfo().split(JdbcUtil.JDBC_URL_SEPARATOR_STRING)[0]);
+        bindConstant().annotatedWith(Names.named(JDBC_PASSWORD_INJECTION_NAME)).to(databaseUri.getUserInfo().split(JdbcUtil.JDBC_URL_SEPARATOR_STRING)[1]);
+        bindConstant().annotatedWith(Names.named(JDBC_AUTO_COMMIT_INJECTION_NAME)).to(false);
 //        bindConstant().annotatedWith(Names.named("mybatis.configuration.localCacheScope")).to(LocalCacheScope.STATEMENT.name());
     }
 
-    private static final String getRawJDBCUrlFromUri(URI uri) {
-        return JDBC_POSTGRESQL_URL_PREFIX + uri.getHost() + JDBC_URL_SEPARATOR + uri.getPort() + uri.getPath() ;
-    }
 }
