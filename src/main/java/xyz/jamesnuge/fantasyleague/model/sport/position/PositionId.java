@@ -1,4 +1,4 @@
-package xyz.jamesnuge.fantasyleague.model.player.position;
+package xyz.jamesnuge.fantasyleague.model.sport.position;
 
 import xyz.jamesnuge.fantasyleague.model.id.BaseId;
 

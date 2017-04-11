@@ -1,8 +1,6 @@
-package xyz.jamesnuge.fantasyleague.model.player.position;
+package xyz.jamesnuge.fantasyleague.model.sport.position;
 
 import xyz.jamesnuge.fantasyleague.model.BaseModel;
-
-import java.util.UUID;
 
 /**
  * Created by james on 9/04/17.
