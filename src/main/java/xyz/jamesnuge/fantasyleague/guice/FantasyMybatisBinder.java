@@ -23,7 +23,7 @@ public class FantasyMybatisBinder extends MyBatisModule {
     private final URI databaseUri;
     private final String rawJdbcUrl;
     private final String driverType;
-    
+
 
     private final Boolean isProduction;
 
@@ -43,10 +43,11 @@ public class FantasyMybatisBinder extends MyBatisModule {
 
     protected void initialize() {
 
-        if (environmentVariableLoader.environmentVariableisPresent("DATABASE_URL"))
-            environmentId("production");
-        else
-            environmentId("development");
+        if (environmentVariableLoader.environmentVariableisPresent(MybatisGuiceUtil.DATABASE_URL_KEY)) {
+            environmentId(MybatisGuiceUtil.PRODUCTION_GUICE_ENVIRONMENT_VARIABLE);
+        } else {
+            environmentId(MybatisGuiceUtil.DEVELOPMENT_GUICE_ENVIRONMENT_VARIABLE);
+        }
 
         bindConstant().annotatedWith(Names.named(JDBC_DRIVER_INJECTION_NAME)).to(driverType);
         bindConstant().annotatedWith(Names.named(JDBC_URL_INJECTION_NAME)).to(rawJdbcUrl);
