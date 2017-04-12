@@ -15,11 +15,13 @@ public class Team extends BaseModel<UUID, TeamId> implements OrganisationModel {
 
     private final List<PlayerId> players;
     private final OrganisationId organisationId;
+    private final String name;
 
-    public Team(TeamId id, List<PlayerId> players, OrganisationId organisationId) {
+    public Team(TeamId id, List<PlayerId> players, OrganisationId organisationId, String name) {
         super(id);
         this.players = players;
         this.organisationId = organisationId;
+        this.name = name;
     }
 
     public List<PlayerId> getPlayers() {
@@ -28,5 +30,9 @@ public class Team extends BaseModel<UUID, TeamId> implements OrganisationModel {
 
     public OrganisationId getOrganisationId() {
         return organisationId;
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -14,18 +14,18 @@
 --    limitations under the License.
 --
 
--- // create_player_table
+-- // create_user
 -- Migration SQL that makes the change goes here.
 
-CREATE TABLE PLAYER (
+CREATE TABLE fantasy_user (
   ID UUID PRIMARY KEY,
+  EMAIL TEXT NOT NULL UNIQUE,
   FIRST_NAME TEXT NULL,
   LAST_NAME TEXT NULL,
-  POSITION_ID INTEGER NULL REFERENCES POSITION(ID)
+  PASSWORD_HASH TEXT NOT NULL
 );
 
 -- //@UNDO
 -- SQL to undo the change goes here.
 
-DROP TABLE IF EXISTS PLAYER;
-
+DROP TABLE fantasy_user;
