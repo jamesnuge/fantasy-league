@@ -1,5 +1,6 @@
 package xyz.jamesnuge.fantasyleague.model.id;
 
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 /**
@@ -7,6 +8,7 @@ import java.util.UUID;
  */
 public class BaseId<K> implements Id<K> {
 
+    @NotNull
     private K id;
 
     public BaseId(K id) {

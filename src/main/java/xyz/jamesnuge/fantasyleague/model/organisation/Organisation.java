@@ -2,6 +2,7 @@ package xyz.jamesnuge.fantasyleague.model.organisation;
 
 import xyz.jamesnuge.fantasyleague.model.BaseModel;
 
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 /**
@@ -11,7 +12,7 @@ public class Organisation extends BaseModel<UUID, OrganisationId> {
 
     private final String name;
 
-    public Organisation(OrganisationId id, String name) {
+    public Organisation(@NotNull OrganisationId id, @NotNull String name) {
         super(id);
         this.name = name;
     }
