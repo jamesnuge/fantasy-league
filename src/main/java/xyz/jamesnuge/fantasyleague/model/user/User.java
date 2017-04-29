@@ -27,12 +27,16 @@ public class User extends BaseModel<UUID, UserId> implements HasPassword {
         this.passwordHash = PASSWORD_GENERATOR.getSaltedPassword(passwordHash);
     }
 
-    public void setPassword(String password) {
-        this.passwordHash = password;
+    public void setPassword(String password) throws PasswordException {
+        setPassword(PASSWORD_GENERATOR.getSaltedPassword(password));
     }
 
     public String getPasswordHash() {
         return this.passwordHash;
+    }
+
+    private void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public String getFirstName() {
