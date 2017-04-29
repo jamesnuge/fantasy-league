@@ -1,4 +1,4 @@
-package xyz.jamesnuge.fantasyleague.model.user;
+package xyz.jamesnuge.fantasyleague.model.user.password;
 
 /**
  * Created by james on 9/04/17.

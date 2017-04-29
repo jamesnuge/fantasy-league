@@ -1,6 +1,7 @@
 package xyz.jamesnuge.fantasyleague.model.user;
 
 import xyz.jamesnuge.fantasyleague.model.BaseModel;
+import xyz.jamesnuge.fantasyleague.model.user.password.HasPassword;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
@@ -16,8 +17,8 @@ public class User extends BaseModel<UUID, UserId> implements HasPassword {
     private String email;
     private String passwordHash;
 
-    public User(@NotNull UUID id, @NotNull String firstName, @Null String lastName, @NotNull String email, @NotNull String passwordHash) {
-        super(new UserId(id));
+    public User(@NotNull UserId id, @NotNull String firstName, @Null String lastName, @NotNull String email, @NotNull String password) {
+        super(id);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
