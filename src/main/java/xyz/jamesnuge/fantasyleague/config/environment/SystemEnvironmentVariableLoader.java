@@ -9,7 +9,7 @@ public class SystemEnvironmentVariableLoader implements EnvironmentVariableLoade
     }
 
     public Boolean environmentVariableisPresent(String name) {
-        return null;
+        return System.getenv(name) != null;
     }
 
 }

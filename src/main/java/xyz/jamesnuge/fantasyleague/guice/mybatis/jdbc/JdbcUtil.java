@@ -1,4 +1,4 @@
-package xyz.jamesnuge.fantasyleague.guice.mybatis;
+package xyz.jamesnuge.fantasyleague.guice.mybatis.jdbc;
 
 import java.net.URI;
 
