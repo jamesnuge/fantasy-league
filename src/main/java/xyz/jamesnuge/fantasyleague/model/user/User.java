@@ -2,14 +2,14 @@ package xyz.jamesnuge.fantasyleague.model.user;
 
 import xyz.jamesnuge.fantasyleague.model.BaseModel;
 import xyz.jamesnuge.fantasyleague.model.user.password.HasPassword;
+import xyz.jamesnuge.fantasyleague.model.user.password.PasswordException;
+import xyz.jamesnuge.fantasyleague.model.user.password.PasswordGenerator;
+import xyz.jamesnuge.fantasyleague.model.user.password.SunPBKDF2PasswordGenerator;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.util.UUID;
 
-/**
- * Created by james on 9/04/17.
- */
 public class User extends BaseModel<UUID, UserId> implements HasPassword {
 
     private String firstName;
@@ -17,12 +17,14 @@ public class User extends BaseModel<UUID, UserId> implements HasPassword {
     private String email;
     private String passwordHash;
 
-    public User(@NotNull UserId id, @NotNull String firstName, @Null String lastName, @NotNull String email, @NotNull String password) {
+    private static final PasswordGenerator PASSWORD_GENERATOR = new SunPBKDF2PasswordGenerator();
+
+    public User(@NotNull UserId id, @NotNull String firstName, @Null String lastName, @NotNull String email, @NotNull String password) throws PasswordException {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.passwordHash = passwordHash;
+        this.passwordHash = PASSWORD_GENERATOR.getSaltedPassword(passwordHash);
     }
 
     public void setPassword(String password) {
