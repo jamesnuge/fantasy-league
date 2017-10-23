@@ -11,7 +11,9 @@ import xyz.jamesnuge.fantasyleague.guice.mybatis.jdbc.JdbcEnvironmentUtil;
 import xyz.jamesnuge.fantasyleague.guice.mybatis.jdbc.JdbcUtil;
 import xyz.jamesnuge.fantasyleague.config.environment.EnvironmentVariableLoader;
 import xyz.jamesnuge.fantasyleague.mapper.UserMapper;
+import xyz.jamesnuge.fantasyleague.mapper.types.UUIDTypeHandler;
 import xyz.jamesnuge.fantasyleague.model.user.User;
+import xyz.jamesnuge.fantasyleague.model.user.UserId;
 
 import java.net.URI;
 
@@ -64,7 +66,10 @@ public class FantasyMybatisBinder extends MyBatisModule {
         bindTransactionFactoryType(JdbcTransactionFactory.class);
 
         addSimpleAlias(User.class);
+        addSimpleAlias(UserId.class);
         addMapperClass(UserMapper.class);
+
+        addTypeHandlerClass(UUIDTypeHandler.class);
     }
 
 }

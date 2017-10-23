@@ -24,7 +24,7 @@ public class User extends BaseModel<UUID, UserId> implements HasPassword {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.passwordHash = PASSWORD_GENERATOR.getSaltedPassword(passwordHash);
+        this.passwordHash = PASSWORD_GENERATOR.getSaltedPassword(password);
     }
 
     public void setPassword(String password) throws PasswordException {

@@ -8,4 +8,5 @@ import xyz.jamesnuge.fantasyleague.model.id.Id;
  */
 public interface Mapper<K, T extends Id<K>, M extends Model<K, T>> {
     M getById(T id);
+    void insert(M model);
 }

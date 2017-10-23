@@ -4,6 +4,7 @@ import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 import xyz.jamesnuge.fantasyleague.model.user.User;
 import xyz.jamesnuge.fantasyleague.model.user.UserId;
+import xyz.jamesnuge.fantasyleague.model.user.password.PasswordException;
 
 import javax.inject.Inject;
 
@@ -28,9 +29,18 @@ public class UserMapperTest {
     @Test
     public void insertTest() throws Exception {
         User user = generateTestUser();
+        userMapper.insert(user);
     }
 
-    public static User generateTestUser() {
+    @Test
+    public void testGetById() throws Exception {
+        User user = generateTestUser();
+        userMapper.insert(user);
+        User retrievedUser = userMapper.getById(user.getId());
+        assertTrue(user.equals(retrievedUser));
+    }
+
+    public static User generateTestUser() throws PasswordException {
         return new User(new UserId(UUID.randomUUID()), "firstName", "lastName", "email@email.com", "testPassword");
     }
 }
